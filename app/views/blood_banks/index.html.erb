@@ -1,0 +1,107 @@
+<!--  <%# render 'header' %> -->
+ <%= render 'content' %>
+<!--  <%# render 'ahome' %> -->
+<!-- ========================================================================== -->
+<div class="row">
+  <div class="col-md-12">
+    <div class="pageheader">
+      <h2>List Of BloodBanks <small> Total: <%= @bloodbanks.size %></small>
+        <div class="pull-right">
+          <% if can? :create, BloodBank.new %>
+              <%= link_to  new_blood_bank_path, class: "btn btn-info" do %>
+              <i class="glyphicon glyphicon-plus"></i>Add BloodBank
+              <% end %>
+          <% end %>
+              <%= link_to  require_donars_search_form_path, class: "btn btn-info" do %>
+              <i class="glyphicon glyphicon-plus"></i>Require Donar
+              <% end %>
+
+             
+
+
+        </div>
+      </h2>
+    </div>
+    <!-- class for css id for jquery -->
+        <table class="table table-bordered" id="blood_banksTable">
+          <thead>
+            <tr>
+            <th>Sl.no</th>
+              <th>Name</th>
+              <th>Address</th>
+              <th>Locality</th>
+              <th>District</th>
+              <th>State</th>
+              <th>Email</th>
+              <th>Mobile</th>
+              <th>Landline Number</th>
+              <th>Manager</th>
+              <th>Show</th>
+              <% if can? :update , BloodBank %>
+              <th>Update</th>
+              <%end%>
+              <% if can? :destroy, BloodBank %>
+              <th>Destroy</th>
+              <%end%>
+              
+            </tr>
+          </thead>
+
+          <tbody>
+            <% count = 1 %>
+            <%  @bloodbanks.each do |bank| %>
+            
+              <tr>
+                <td><%= count %></td>
+                <td><%= bank.name  %></td>
+                
+                <td><%= bank.address %></td>
+                <td><%#  bank.locality.name %>
+                
+                 <%= link_to bank.locality.name, locality_path(bank.locality) %></td>
+
+               <td><%# bank.district.name %>
+                <%= link_to bank.district.name, district_path(bank.district_id) %></td>
+
+                <td><%# bank.state.name %>
+                 <%= link_to bank.district.name, state_path(bank.state_id) %></td>
+
+                <td><%= bank.email%></td>
+                <td><%= bank.mobile%></td>
+                <td><%= bank.landline_number%></td>
+                <td><%= bank.manager%></td>
+               <td><%= link_to  blood_bank_path(bank), class: "btn btn-primary" do %>
+                <span class="glyphicon glyphicon-eye-open"></span>Show
+                <% end %></td>
+
+
+                 
+
+                   <% if can? :update, BloodBank %>
+                   <td><%= link_to edit_blood_bank_path(bank), class: "btn btn-primary" do %>
+                   Update <span class="glyphicon glyphicon-pencil"></span>
+                   <% end %>
+                   <%# link_to 'Edit', edit_blood_bank_path(bank) %>
+                   <% end %></td>
+                  
+                
+
+                   <% if can? :destroy, BloodBank %>
+                   <td><%= link_to blood_bank_path(bank), method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-primary" do %>
+                   Destroy <span class="glyphicon glyphicon-edit"></span>
+                   <% end %>
+                   <%# link_to 'Destroy', bank, method: :delete, data: { confirm: 'Are you sure?' } %>
+                   <% end %></td>
+               
+                
+              </tr>
+              <% count += 1 %>
+            <% end %>
+          </tbody>
+        </table>
+  </div>
+</div>
+
+
+
+

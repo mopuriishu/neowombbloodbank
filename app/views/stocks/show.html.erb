@@ -1,0 +1,25 @@
+
+
+<!--
+<%= b.collection_select #:blood_bank_id, current_user.BloodBank, :id, :name, prompt: "Select BloodBank" %></br>
+<h2>Stocks - <small><%=# link_to "Update Blood Availabilities", stocks_update_blood_availabilities_path %></small></h2>
+<b>Blood Bank Name </b> - <%= @stock.blood_bank.name %><br/>
+<b>Blood Bank Phone Number <b> - <%= @stock.blood_bank.phone_no %><br/>
+<b>Blood Group Name </b> - <%= @stock.blood_group.name %><br/>
+<b>Units<b> - <%= @stock.units %><br/>
+
+
+<b>State <b> - <%= @stock.blood_bank.state.name %><br/>
+<b>District <b> - <%= @stock.blood_bank.district.name %><br/>
+<b>Locality <b> - <%= @stock.blood_bank.locality.name %><br/>
+
+-->
+
+<!--<%=  link_to @stock.blood_bank.try(:name) %> -->
+
+<%= link_to "edit", edit_stock_path(@stock.id), class: "btn btn-primary" %>
+
+ <%= link_to "destroy", stock_path(@stock.id),method: :delete, data: {confirm: "Are you sure?"},class: "btn btn-primary"%>
+
+<%= link_to "BACK", stocks_path, class: "btn btn-primary" %>
+

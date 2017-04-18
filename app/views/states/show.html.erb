@@ -1,0 +1,54 @@
+
+<div class="pageheader">
+        <h2><%= @state.name.capitalize %></h2><br/><br/>
+</div>
+
+<% @state.blood_banks.each do |bank| %>
+  <%= bank.name %>
+<% end %>
+
+<div class="thumbnail">
+<div class="row">
+  <% flag = 0 %>
+
+      <% BloodGroup.all.each do |bloodgroup| %>
+        <div class="col-md-3">
+        <b><%= bloodgroup.name %></b>
+        <table>
+          <thead class="table table-bordered">
+            <tr>
+              <th>Component Type</th>
+              <th>Total Stocks</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% ComponentType.all.each do |comp| %>
+                <tr>
+                <% @state.blood_banks.each do |bloodbank| %>
+                <% @total =  bloodbank.blood_availabilities.where('component_type_id = ?', comp.id).pluck(:total_stocks)%>
+
+                <td><%= comp.name%></td>
+                <td><%= @total[flag] %></td>
+                </tr>
+            <% end %>
+            <% end %>
+          </tbody>  
+        </table>
+        <% flag += 1 %>
+        </div>
+      <%end%>
+</div>
+
+    
+  
+</div>
+
+
+
+
+
+
+
+
+
+  

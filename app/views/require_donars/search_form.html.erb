@@ -1,0 +1,31 @@
+<h2> Require Donars </h2>
+
+<%=form_tag require_donars_results_path, method: :get do  %>
+
+
+<%= label_tag :BloodGroup %></br>
+<%= select_tag "blood_group_id",options_from_collection_for_select(BloodGroup.all, "id", "name"), prompt: "Select blood group" %></br></br>
+
+<%= label_tag :State %></br>
+<%= select_tag "state_id",options_from_collection_for_select(State.all, "id", "name"), prompt: "select State" %></br></br>
+
+<%= label_tag :District %></br>
+<%= select_tag "district_id",options_from_collection_for_select(District.all, "id", "name"), prompt: "Select District" %></br></br>
+
+
+<%= label_tag :Locality %></br>
+<%= select_tag "locality_id",options_from_collection_for_select(Locality.all, "id", "name"), prompt: "Select Locality" %></br>
+
+<%= submit_tag  " Show The Persons With This Details And Send An Email"  %>
+
+<% end %>
+
+
+
+
+
+
+
+
+
+

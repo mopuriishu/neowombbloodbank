@@ -1,0 +1,142 @@
+<div class="thumbnail">
+<h1>BloodBank - <%= @bloodbank.name %></h1>
+<b>Address</b>-<br/> <%= @bloodbank.address %>,
+ <%= @bloodbank.state.name %>,
+ <%= @bloodbank.district.name %>,
+ <%= @bloodbank.locality.name %><br/>.
+
+<!--  <%# image_tag(@bloodbank.cover.url) if @bloodbank.cover %> -->
+<h2> Stocks List </h2><br/> 
+
+ 	<% flag = 0 %>
+ 	<% BloodGroup.all.each do |bloodgroup| %>
+ 	<b><%= bloodgroup.name %></b>
+ 	<table>
+ 		<thead>
+ 			<tr>
+ 				<th>Component Type</th>
+ 				<th>Total Stocks</th>
+        
+ 			</tr>
+ 		</thead>
+ 		<tbody>
+ 			<% graph_data = {} %>
+    <% ComponentType.all.each do |comp| %>
+		<!-- create hash graph_data = {} -->
+    		<tr>
+        
+ 			<% @total =  @bloodbank.blood_availabilities.where('component_type_id = ?', comp.id).pluck(:total_stocks)%>
+      
+      <td><%= comp.name%></td>
+ 				<%# @total.each do |total| %>
+        <td><%= @total[flag] %></td>
+ 				<%# end %>
+ 				 </tr>
+         <!-- graph_data[comp.name] = @total[flag]
+         -->
+         <% graph_data[comp.name] = @total[flag] %>
+         <% end %>
+         
+      </tbody>	
+ 	</table>
+  <!-- create graph command --> 
+  <!-- <%# bar_chart(graph_data) %>-->
+
+
+
+<!--
+irb(main):003:0> b=BloodAvailability.where('component_type_id = ?',1)
+  BloodAvailability Load (78.0ms)  SELECT "blood_availabilities".* FROM "blood_a
+vailabilities" WHERE (component_type_id = 1)
+=> #<ActiveRecord::Relation [#<BloodAvailability id: 770, blood_bank_id: 28, blo
+od_group_id: 1, total_stocks: 100, created_at: "2016-11-29 10:11:52", updated_at
+: "2016-11-29 10:39:56", component_type_id: 1>, #<BloodAvailability id: 774, blo
+od_bank_id: 28, blood_group_id: 2, total_stocks: 5, created_at: "2016-11-29 10:1
+1:53", updated_at: "2016-11-29 16:50:51", component_type_id: 1>, #<BloodAvailabi
+lity id: 778, blood_bank_id: 28, blood_group_id: 3, total_stocks: 0, created_at:
+ "2016-11-29 10:11:54", updated_at: "2016-11-29 10:11:54", component_type_id: 1>
+, #<BloodAvailability id: 782, blood_bank_id: 28, blood_group_id: 4, total_stock
+s: 0, created_at: "2016-11-29 10:11:55", updated_at: "2016-11-29 10:11:55", comp
+onent_type_id: 1>, #<BloodAvailability id: 786, blood_bank_id: 28, blood_group_i
+d: 5, total_stocks: 0, created_at: "2016-11-29 10:11:56", updated_at: "2016-11-2
+9 10:11:56", component_type_id: 1>, #<BloodAvailability id: 790, blood_bank_id:
+28, blood_group_id: 6, total_stocks: 0, created_at: "2016-11-29 10:11:56", updat
+ed_at: "2016-11-29 10:11:56", component_type_id: 1>, #<BloodAvailability id: 794
+, blood_bank_id: 28, blood_group_id: 7, total_stocks: 550, created_at: "2016-11-
+29 10:11:57", updated_at: "2016-11-29 19:05:05", component_type_id: 1>, #<BloodA
+vailability id: 798, blood_bank_id: 28, blood_group_id: 8, total_stocks: 0, crea
+ted_at: "2016-11-29 10:11:58", updated_at: "2016-11-29 10:11:58", component_type
+_id: 1>, #<BloodAvailability id: 802, blood_bank_id: 29, blood_group_id: 1, tota
+l_stocks: 5, created_at: "2016-11-29 10:11:59", updated_at: "2016-11-29 17:51:29
+", component_type_id: 1>, #<BloodAvailability id: 806, blood_bank_id: 29, blood_
+group_id: 2, total_stocks: 0, created_at: "2016-11-29 10:11:59", updated_at: "20
+16-11-29 10:11:59", component_type_id: 1>, ...]>
+
+
+
+<ilability.where('component_type_id = ?',1).pluck(:total_stocks)
+   (0.0ms)  SELECT "blood_availabilities"."total_stocks" FROM "blood_availabilit
+ies" WHERE (component_type_id = 1)
+=> [100, 5, 0, 0, 0, 0, 550, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0]
+irb(main):005:0>
+-->
+  
+
+
+
+<div>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation"><a href="#pie_chart" aria-controls="pie_chart" role="tab" data-toggle="tab">Piechart</a></li>
+    
+    <li role="presentation" class="active"><a href="#bar_chart" aria-controls="bar_chart" role="tab" data-toggle="tab">Barchart</a></li>
+    <li role="presentation"><a href="#column_chart" aria-controls="column_chart" role="tab" data-toggle="tab">Columnchart</a></li>
+      </ul>
+
+  <!-- Tab panes -->
+
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane" id="pie_chart">
+      <%= pie_chart(graph_data) %>
+    </div>
+
+    <div role="tabpanel" class="tab-pane active" id="bar_chart">
+      <%= bar_chart(graph_data) %>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="column_chart">
+      <%= column_chart(graph_data) %>
+    </div>
+    
+</div>
+
+
+
+
+
+
+<% flag += 1 %>
+ <%end%>
+
+
+
+<%# link_to "edit", edit_blood_bank_path(@bloodbank.id),class: "btn btn-info" %>
+<% if can? :update, BloodBank %>
+<%= link_to  edit_blood_bank_path(@bloodbank.id),class: "btn btn-primary" do %>
+<i class="glyphicon glyphicon-eye-open" ></i>Edit
+<%end%>
+<%end%>
+
+
+
+<%# link_to "destroy", blood_bank_path(@bloodbank.id),method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-info"%>
+<% if can? :destroy, BloodBank %>
+<%= link_to  blood_bank_path(@bloodbank.id),method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-primary" do%>
+<i class="glyphicon glyphicon-edit"></i>Destroy
+<%end%>
+<%end%>
+
+<%= link_to "BACK", blood_banks_path, class: "btn btn-primary" %>
+
+</div>

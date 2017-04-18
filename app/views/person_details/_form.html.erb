@@ -1,0 +1,64 @@
+
+
+
+<%= form_for @persondetail do |b| %>
+<% if @persondetail.errors.any? %>
+<div class = "errors" style = "color: red;">
+<h3> These errors Prohibited the form being saved </h3>
+<ul>
+<% @persondetail.full_messages.each do |msg| %>
+<li><%= msg %></li>
+<% end %>
+</ul>
+</div>
+<% end %>
+
+<div class="form-group">
+<%= b.label :Name %>
+<%= b.text_field :name, class: "form-control" %>
+</div>
+
+<div class="form-group">
+<%= b.label :Email %>
+<%= b.email_field :email, class: "form-control" %>
+</div>
+
+<div class="form-group">
+<%= b.label :MobileNumber%>
+<%= b.text_field :mobile_no,class: "form-control" %>
+</div>
+
+
+<div class="form-group">
+<%= b.label :State %>
+<%= b.collection_select :state_id, State.all, :id, :name, {prompt: "Select State"},{class: "form-control"} %>
+</div>
+
+<div class="form-group">
+<%= b.label :Locality %>
+<%= b.collection_select :locality_id, Locality.all, :id, :name, {prompt: "Select Locality"},{class: "form-control"} %>
+</div>
+
+<div class="form-group">
+<%= b.label :District %>
+<%= b.collection_select :district_id, District.all, :id, :name, {prompt: "Select District"},{class: "form-control"} %>
+</div>
+
+<div class="form-group">
+<%= b.label :BloodGroup %>
+<%= b.collection_select :blood_group_id, BloodGroup.all, :id, :name, {prompt: "Select BloodBank"},{class: "form-control"} %>
+</div>
+
+<%= b.submit "Submit" %>
+
+<% end %>
+
+
+
+
+
+
+
+
+
+

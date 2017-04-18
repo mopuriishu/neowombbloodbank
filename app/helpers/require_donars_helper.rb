@@ -1,0 +1,2 @@
+module RequireDonarsHelper
+end

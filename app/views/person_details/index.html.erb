@@ -1,0 +1,63 @@
+<h2>Registration Form </h2>
+
+<td><%= link_to 'Add Details', new_person_detail_path, class: "btn btn-info" %>
+
+ 
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      
+      
+      <th>Name</th>
+      <th>State</th>
+      <th>District</th>
+      <th>Locality</th>
+      <th>Email</th>
+      <th>BloodGroup</th>
+      <th>MobileNumber</th>
+      <th>Edit</th>
+      <th>Destroy</th>
+      
+      
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @persondetails.each do |persondetail| %>
+      <tr>
+        <td><%= persondetail.name  %></td>
+        <td><%= persondetail.state.name %></td>
+        <td><%= persondetail.district.name %></td>
+        <td><%= persondetail.locality.name %></td>
+        <td><%= persondetail.email%></td>
+        <td><%= persondetail.blood_group.name%></td>
+        <td><%= persondetail.mobile_no%></td>
+        
+        
+        
+        
+            
+           <% if can? :update, User %>
+           <td><%= link_to 'Edit', edit_person_detail_path(persondetail),class: "btn btn-primary" %></td>
+           <%end%>
+           <% if can? :destroy, User %>
+           <td><%= link_to 'Destroy', persondetail, method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-primary"  %></td>
+           <%end%>
+          
+        
+
+            
+            
+            
+            
+        </tr>
+    <% end %>
+  </tbody>
+</table>
+
+ 
+
+
+
+
+

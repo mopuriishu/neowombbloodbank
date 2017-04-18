@@ -1,0 +1,73 @@
+
+
+<%= form_for @bloodbank do |b| %>
+<% if @bloodbank.errors.any? %>
+<div class="errors" style="color: red;">
+<h3>These errors prohibitted the form from being saved: </h3>
+<ul>
+<% @bloodbank.errors.full_messages.each do |msg| %>
+<li> <%= msg %></li>
+<% end %>
+</ul>
+</div>
+<% end %>
+<div class="form-group">
+<%= b.label :Name %>
+<%= b.text_field :name, class: "form-control" %>
+</div>
+
+<%= b.label :bloodBankImage %>
+<%= b.file_field :cover %>
+
+
+<div class="form-group">
+<%= b.label :Address %>
+<%= b.text_field :address, class: "form-control" %>
+</div>
+
+<div class="form-group">
+<%= b.label :State %>
+<%= b.collection_select :state_id, State.all, :id, :name, {prompt: "Select State"}, {class: "form-control"} %>
+</div>
+
+<div class="form-group">
+<%= b.label :District %>
+<%= b.collection_select :district_id, District.all, :id, :name, {prompt: "Select District"}, {class: "form-control"} %>
+</div>
+
+<div class="form-group">
+<%= b.label :Locality %>
+<%= b.collection_select :locality_id, Locality.all, :id, :name, {prompt: "Select Locality"}, {class: "form-control"} %>
+</div>
+
+<div class="form-group">
+<%= b.label :Email %>
+<%= b.email_field :email,{class: "form-control"} %>
+</div>
+
+<div class="form-group">
+<%= b.label :MobileNumber %>
+<%= b.text_field :mobile, class: "form-control" %>
+</div>
+
+<div class="form-group">
+<%= b.label :LandlineNumber %> 
+<%= b.text_field :landline_number, class: "form-control" %>
+</div>
+
+<div class="form-group">
+<%= b.label :Users %>
+<%= b.collection_select :user_id, User.joins(:roles).where('roles.name=?',"bloodbank"), :id, :email, {prompt: "Select User"}, {class: "form-control"} %>
+</div>
+
+<div class="form-group">
+<%= b.label :ManagerName %>
+<%= b.text_field :manager, class: "form-control" %>
+</div>
+
+
+
+
+<%= b.submit "Create"  %>
+
+<% end %>

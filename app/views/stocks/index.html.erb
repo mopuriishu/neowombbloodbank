@@ -1,0 +1,47 @@
+<h1> Stocks List </h1>
+
+<% if can? :create, Stock.new %>
+<%# link_to 'Add Stock', new_stock_path %>
+<%= link_to 'Add Stock',new_stock_path, class: "btn btn-info" %>
+
+<% end %>
+
+
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+    <th>BloodBankName</th>
+    <th>State</th>
+    <th>District</th>
+    <th>Locality</th>
+    <th>BloodGroup</th>
+    <th>Component Type</th>
+    <th>Units</th>
+    
+    </tr>
+  </thead>
+  <tbody>
+    <% @stocks.each do |stock| %>
+      <tr>
+      <td><%= stock.blood_bank.name %></td>
+      <td><%= stock.blood_bank.state.name %></td>
+        <td><%= stock.blood_bank.district.name %></td>
+        <td><%= stock.blood_bank.locality.name %></td>
+        <td><%= stock.blood_group.name %></td>
+        <td><%= stock.component_type.name %></td>
+        <td><%= stock.units %></td>
+
+        
+        
+        
+        <% if can? :destroy, stock %>
+        <td><%= link_to 'Destroy', stock, method: :delete, data: { confirm: 'Are you sure?' } , class: "btn btn-primary"%></td>
+        <% end %>
+
+       </tr>
+    <% end %>
+  </tbody>
+</table>
+
+

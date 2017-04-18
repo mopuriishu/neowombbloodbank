@@ -1,0 +1,5 @@
+<%= link_to "edit", edit_person_detail_path(@persondetail.id) %>
+
+ <%= link_to "destroy", person_detail_path(@persondetail.id),method: :delete, data: {confirm: "Are you sure?"} %>
+
+<%= link_to "BACK", person_details_path %>

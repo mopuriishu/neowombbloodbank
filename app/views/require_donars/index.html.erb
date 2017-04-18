@@ -1,0 +1,19 @@
+<%= link_to  require_donars_search_form_path, class: "btn btn-info" do %>
+              <i class="glyphicon glyphicon-plus"></i>Require Donar
+<% end %>
+
+
+
+<div class="col-md-4">
+      <div class="pageheader">
+              <h2>BloodBanks</h2>
+        </div>
+               <% BloodBank.all.each do |bloodbank| %>
+                     <%= image_tag(bloodbank.cover.url) if bloodbank.cover %><br/><br/>
+                     <%= bloodbank.name %>
+                     <%= bloodbank.address %>
+                <% end %>
+</div>
+
+
+

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bloodbanksmanagmentsystem</title>
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<meta charset="utf-8">
+    <meta name = "format-detection" content = "telephone=no" />
+    <link rel="icon" href="/images/favicon.ico">
+    <link rel="shortcut icon" href="/images/favicon.ico" />
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/jquery.js"></script>
+    <script src="/js/jquery-migrate-1.1.1.js"></script>
+    <script src="/js/script.js"></script> 
+    <script src="/js/jquery.ui.totop.js"></script>
+    <script src="/js/superfish.js"></script>
+    <script src="/js/jquery.equalheights.js"></script>
+    <script src="/js/jquery.mobilemenu.js"></script>
+    <script src="/js/jquery.easing.1.3.js"></script>
+    <script>
+      $(document).ready(function(){
+        $().UItoTop({ easingType: 'easeOutQuart' });
+      }) 
+    </script>
+    <!--[if lt IE 8]>
+      <div style=' clear: both; text-align:center; position: relative;'>
+        <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+          <img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." />
+        </a>
+      </div>
+    <![endif]-->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <link rel="stylesheet" media="screen" href="css/ie.css">
+    <![endif]-->
+
+
+
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag "https://www.google.com/jsapi" %>
+
+  <link href="//cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" rel="stylesheet" /><!-- for jquery css-->
+
+  
+
+  <script src="//cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script><!-- for jquery js-->
+
+<!-- for jquery end -->
+
+
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <%= csrf_meta_tags %>
+</head>
+
+
+
+<body class="" id="top">
+<div class="container">
+<!-- =========================================================================== -->
+<!--==============================header=================================-->
+    <header>
+   <!--  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">  
+          <div class="container">
+           <a class="navbar-brand" href="#"><span><h1>ISHU BLOODBANK</h1></span>
+               </a> -->
+     <% if user_signed_in? %>
+      welcome <%= current_user.username %>
+      <%#current_user.email %>  <!-- at starting if u want to show user email--> 
+         <% if can? :read, User.first  %>
+            <%= link_to "view all users", users_path %>
+        <%end%> 
+             <div class="clear"></div>
+            <div class="container_12">
+              <div class="grid_12">
+                <!-- <h1>
+                  <a href="index.html">
+                    <img src="/images/logo.png" alt="Neowob Family">
+                  </a>                 </h1> -->
+                <div class="menu_block">
+                  <nav class="horizontal-nav full-width horizontalNav-notprocessed">
+                  <div class="container">
+           <a class="navbar-brand" href="#"><span><h1><strong>Neowomb</strong></h1></span>
+               </a><br/><br/> 
+
+                    <ul class="sf-menu">
+                       <!-- <strong> <button type="button" class="btn-xs pull-left"  >ISHU BloodBank</button></strong> -->
+                      <li>
+
+                        <li><%= link_to "BloodBanks", blood_banks_path %></li>
+                        <!-- <ul>
+                          <li><a href="#">history</a></li>
+                          <li><a href="#">offers</a></li>
+                          <li>
+                            <a href="#">news</a>
+                            <ul>
+                              <li><a href="#">fresh </a></li>
+                              <li><a href="#">archive</a></li>
+                            </ul>
+                          </li>
+                        </ul>  -->
+                      </li>
+                      
+                      <!-- <li><a href="index-2.html">Campaigns</a></li> -->
+                      <li><%= link_to "Campaigns", campaign_shedules_path %></li>
+                     <!--  <ul>
+                         <li><a href="index-3.html">Volunteer </a></li>
+                         <li><a href="index-1.html">Videos </a></li>
+                      </ul> -->
+                        <li><%= link_to "Stocks", stocks_path %></li>
+                       <!--  <li class="current"><a href="index-4.html">Contacts</a></li> -->
+                        <li><%= link_to "Contacts", contacts_path %></li>
+                        <li><%= link_to "Require Donar", require_donars_search_form_path %><br/></li>
+                        <li><%= link_to "Login", new_user_session_path %></li>
+                      <ul>
+                        <li><%= link_to "Login", new_user_session_path %></li>
+                        <li><%= link_to "Registraion", new_user_registration_path %></li> 
+                    </ul>      
+                    </ul>
+
+                  </nav>
+                  <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+              </div>
+            </div>
+            <% else %>
+
+                 <div class="clear"></div>
+            <div class="container_12">
+              <div class="grid_12">
+              <!-- <h1><strong><span> <button type="button" class="btn-xs pull-left"  >ISHU BloodBank </button></span></strong></h1> -->
+                <!--  <h1>
+                  <a href="index.html">
+                    <img src="/images/logo.png" alt="Your Happy Family">
+                  </a>
+                </h1>  -->
+                <div class="menu_block">
+                  <nav class="horizontal-nav full-width horizontalNav-notprocessed">
+                    <ul class="sf-menu">
+                    
+                      <li>
+                        <li><%= link_to "BloodBanks", blood_banks_path %></li>
+                        <!-- <ul>
+                          <li><a href="#">history</a></li>
+                          <li><a href="#">offers</a></li>
+                          <li>
+                            <a href="#">news</a>
+                            <ul>
+                              <li><a href="#">fresh </a></li>
+                              <li><a href="#">archive</a></li>
+                            </ul>
+                          </li>
+                        </ul>  -->
+                      </li>
+                      
+                      <!-- <li><a href="index-2.html">Campaigns</a></li> -->
+                      <li><%= link_to "Campaigns", campaign_shedules_path %></li>
+                     <!--  <ul>
+                         <li><a href="index-3.html">Volunteer </a></li>
+                         <li><a href="index-1.html">Videos </a></li>
+                      </ul> -->
+                        <li><%= link_to "Stocks", stocks_path %></li>
+                     
+                        <li><%= link_to "Contacts", contacts_path %></li>
+                        <li><%= link_to "Require Donar", require_donars_search_form_path %><br/></li>
+                        <li><%= link_to "Login", new_user_session_path %></li>
+                      <ul>
+                        <li><%= link_to "Login", new_user_session_path %></li>
+                        <li><%= link_to "Registraion", new_user_registration_path %></li> 
+                    </ul>      
+                    </ul>
+
+                  </nav>
+                  <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+              </div>
+            </div>
+          
+      </div>
+      </nav>
+
+      </div></div></div>
+     <!--  </div></nav> -->
+            <% end %>
+          </header>
+
+
+<!-- ============================================================================ -->
+   
+<%= alert %>
+<%= notice %>
+
+<%= yield %>
+
+<footer>  
+        <div class="hor bg3"></div>
+        <div class="container_12">
+          <div class="grid_12 ">  
+            <div class="socials">
+              <a href="#"></a>
+              <a href="#"></a>
+              <a href="#"></a>
+              <div class="clear"></div>
+            </div>
+            <div class="copy">
+              <strong>Life in Color</strong>   &copy; <span id="copyright-year"></span> | <a href="#">Privacy Policy</a> <br>
+              Website designed by <a href="http://ishu.com" rel="nofollow">is</a>
+            </div>  
+          </div>
+        </div>  
+      </footer>
+
+</div>
+</body>
+</html>
+
+
+
